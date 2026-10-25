@@ -55,7 +55,7 @@
     :root[data-theme="light"] .photo-label { color: #F2E8D8; }
     :root[data-theme="light"] .hero { background: #E8DAC7; }
     :root[data-theme="light"] .hero::after {
-      background: linear-gradient(90deg, #F2E8D8f5 0%, #F2E8D8e6 38%, #F2E8D899 65%, #F2E8D814 100%);
+      background: linear-gradient(90deg, #F2E8D8eb 0%, #F2E8D8d9 38%, #F2E8D873 65%, #F2E8D80a 100%);
     }
     :root[data-theme="light"] .hero p,
     :root[data-theme="light"] .hero-note { color: var(--muted); }
@@ -276,7 +276,9 @@
       position: absolute;
       z-index: -2;
       inset: 0;
-      opacity: .66;
+      object-fit: cover;
+      object-position: 50% 58%;
+      opacity: 1;
     }
 
     .hero::after {
@@ -287,13 +289,13 @@
       background:
         linear-gradient(
           90deg,
-          rgba(8, 8, 8, .96),
-          rgba(8, 8, 8, .76) 43%,
-          rgba(8, 8, 8, .15)
+          rgba(8, 8, 8, .86),
+          rgba(8, 8, 8, .72) 48%,
+          rgba(8, 8, 8, .06)
         ),
         linear-gradient(
           0deg,
-          rgba(8, 8, 8, .65),
+          rgba(8, 8, 8, .38),
           transparent 55%
         );
     }
@@ -362,6 +364,8 @@
     .photo img {
       position: absolute;
       inset: 0;
+      object-fit: contain;
+      object-position: center;
       opacity: .8;
     }
 
@@ -714,8 +718,14 @@
 
       .hero::after {
         background:
-          linear-gradient(90deg, #080808e8, #08080880),
-          linear-gradient(0deg, #080808a6, transparent);
+          linear-gradient(90deg, #080808d9, #080808b8 65%, #08080859),
+          linear-gradient(0deg, #08080866, transparent);
+      }
+
+      .hero-photo { object-position: 50% 55%; }
+
+      :root[data-theme="light"] .hero::after {
+        background: linear-gradient(90deg, #F2E8D8eb, #F2E8D8bf 65%, #F2E8D87a);
       }
 
       .hero p { font-size: 16px; }
@@ -783,6 +793,27 @@
       .button { transition: none; }
       .button:hover { transform: none; }
     }
+    /* All cards sample one uniformly scaled image in grid coordinates. */
+    .equipment-card,
+    :root[data-theme="light"] .equipment-card {
+      color: #F2E8D8;
+      background-color: #171717;
+      background-image:
+        linear-gradient(180deg, rgba(8, 8, 8, .48), rgba(8, 8, 8, .68)),
+        var(--equipment-photo, none);
+      background-size: 100% 100%, var(--equipment-image-size, auto);
+      background-position: 0 0, var(--equipment-image-position, 0 0);
+      background-repeat: no-repeat;
+      background-origin: border-box;
+      background-clip: border-box;
+    }
+    :root[data-theme="light"] .equipment-card {
+      background-image:
+        linear-gradient(180deg, rgba(8, 8, 8, .44), rgba(8, 8, 8, .64)),
+        var(--equipment-photo, none);
+    }
+    .equipment-card .tag,
+    .equipment-card p { color: #F2E8D8; }
   </style>
 </head>
 
@@ -841,7 +872,7 @@
     <section class="hero container" aria-labelledby="hero-title">
       <img
         class="hero-photo"
-        src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=1800&amp;q=85"
+        src="images/studio.jpg"
         alt="Оборудование в студии звукозаписи"
         fetchpriority="high"
         referrerpolicy="no-referrer"
@@ -879,7 +910,7 @@
       <div class="about-grid">
         <div class="photo">
           <img
-            src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+            src="images/micro.jpg"
             alt="Студийный микрофон для записи голоса"
             loading="lazy"
             referrerpolicy="no-referrer"
@@ -1247,6 +1278,43 @@
         updateTheme(theme);
         try { localStorage.setItem('mostudio-theme', theme); } catch (_) {}
       });
+    })();
+  </script>
+  <script>
+    (() => {
+      const grid = document.querySelector('.equipment-grid');
+      const cards = [...grid.querySelectorAll('.equipment-card')];
+      const photo = new Image();
+      let frame;
+      function updateFragments() {
+        if (!photo.naturalWidth) return;
+        const bounds = grid.getBoundingClientRect();
+        if (!bounds.width || !bounds.height) return;
+        const scale = Math.max(bounds.width / photo.naturalWidth,
+          bounds.height / photo.naturalHeight);
+        const width = photo.naturalWidth * scale;
+        const height = photo.naturalHeight * scale;
+        const left = (bounds.width - width) / 2;
+        const top = (bounds.height - height) / 2;
+        grid.style.setProperty('--equipment-image-size', `${width}px ${height}px`);
+        cards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--equipment-image-position',
+            `${left - (rect.left - bounds.left)}px ${top - (rect.top - bounds.top)}px`);
+        });
+        grid.style.setProperty('--equipment-photo', 'url("images/micher.jpg")');
+      }
+      function scheduleUpdate() {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(updateFragments);
+      }
+      photo.addEventListener('load', scheduleUpdate);
+      photo.src = 'images/micher.jpg';
+      const observer = new ResizeObserver(scheduleUpdate);
+      observer.observe(grid);
+      cards.forEach(card => observer.observe(card));
+      window.addEventListener('resize', scheduleUpdate);
+      document.fonts.ready.then(scheduleUpdate);
     })();
   </script>
 </body>
