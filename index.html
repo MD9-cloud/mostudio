@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="MoStudio — учебный лендинг вымышленной студии звукозаписи в Санкт-Петербурге. Запись вокала, сведение и мастеринг.">
-  <meta name="theme-color" content="#091724">
+  <meta name="theme-color" content="#080808">
   <title>MoStudio — студия звукозаписи</title>
 
   <script>
@@ -16,49 +16,50 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #091724;
-      --panel: #102434;
-      --text: #edf5fc;
-      --muted: #adc0d0;
-      --accent: #9bcaf0;
-      --line: #2d4557;
+      --bg: #080808;
+      --panel: #171717;
+      --text: #F2E8D8;
+      --muted: #B9AD9F;
+      --accent: #0563AA;
+      --detail: #B78360;
+      --line: #484038;
       --radius: 24px;
     }
 
     :root[data-theme="light"] {
       color-scheme: light;
-      --bg: #f3f7fb;
-      --panel: #ffffff;
-      --text: #152d40;
-      --muted: #465f73;
-      --accent: #245d89;
-      --line: #b6c7d5;
+      --bg: #F2E8D8;
+      --panel: #FFFAF2;
+      --text: #171717;
+      --muted: #62574C;
+      --detail: #855637;
+      --line: #C6B6A3;
     }
     :root[data-theme="light"] .button { background: var(--accent); color: #fff; }
-    :root[data-theme="light"] .button:hover { background: #19466b; }
+    :root[data-theme="light"] .button:hover { background: #045995; }
     :root[data-theme="light"] .button.secondary { background: transparent; color: var(--text); }
-    :root[data-theme="light"] .button.secondary:hover { background: #e0ebf4; }
-    :root[data-theme="light"] .services { background: #e7eff6; }
-    :root[data-theme="light"] .service-card.featured { background: #dceaf5; border-color: #698da9; }
-    :root[data-theme="light"] .equipment-card { background: linear-gradient(135deg, #fff, #e5eef6); }
+    :root[data-theme="light"] .button.secondary:hover { background: #E5D7C5; }
+    :root[data-theme="light"] .services { background: #E9DECE; }
+    :root[data-theme="light"] .service-card.featured { background: #E8DAC7; border-color: #94765F; }
+    :root[data-theme="light"] .equipment-card { background: linear-gradient(135deg, #fff, #F4EBDC); }
     :root[data-theme="light"] .booking-panel {
-      background: linear-gradient(135deg, #dfecf6, #fff 70%);
-      border-color: #829fb5;
+      background: linear-gradient(135deg, #E8DAC7, #fff 70%);
+      border-color: #A58A72;
     }
     :root[data-theme="light"] .contact-details div { border-color: var(--line); }
     :root[data-theme="light"] input,
-    :root[data-theme="light"] select { background: #fff; border-color: #69869e; }
-    :root[data-theme="light"] input::placeholder { color: #526b7e; }
-    :root[data-theme="light"] .form-message { background: #e2eef7; }
+    :root[data-theme="light"] select { background: #fff; border-color: #927C68; }
+    :root[data-theme="light"] input::placeholder { color: #62574C; }
+    :root[data-theme="light"] .form-message { background: #E8DAC7; }
     :root[data-theme="light"] .mobile-menu nav { background: var(--panel); border-color: var(--line); }
-    :root[data-theme="light"] .photo-label { color: #edf5fc; }
-    :root[data-theme="light"] .hero { background: #e1ebf3; }
+    :root[data-theme="light"] .photo-label { color: #F2E8D8; }
+    :root[data-theme="light"] .hero { background: #E8DAC7; }
     :root[data-theme="light"] .hero::after {
-      background: linear-gradient(90deg, #f3f7fbf5 0%, #f3f7fbe6 38%, #f3f7fb99 65%, #f3f7fb14 100%);
+      background: linear-gradient(90deg, #F2E8D8f5 0%, #F2E8D8e6 38%, #F2E8D899 65%, #F2E8D814 100%);
     }
     :root[data-theme="light"] .hero p,
     :root[data-theme="light"] .hero-note { color: var(--muted); }
-    :root[data-theme="light"] .hero-note span { border-color: #69869e; }
+    :root[data-theme="light"] .hero-note span { border-color: #927C68; }
     .header-actions {
       display: flex;
       align-items: center;
@@ -159,7 +160,7 @@
       border: 1px solid transparent;
       border-radius: 999px;
       background: var(--accent);
-      color: #091724;
+      color: #FFFFFF;
       font-weight: 700;
       line-height: 1.3;
       text-align: center;
@@ -167,7 +168,7 @@
     }
 
     .button:hover {
-      background: #c2e2fa;
+      background: #045995;
       transform: translateY(-2px);
     }
 
@@ -265,9 +266,9 @@
       border-radius: var(--radius);
       background: radial-gradient(
         ellipse at 85% 25%,
-        #446580,
-        #122a3e 55%,
-        #102131
+        #604B39,
+        #211B16 55%,
+        #12100E
       );
     }
 
@@ -286,13 +287,13 @@
       background:
         linear-gradient(
           90deg,
-          rgba(7, 22, 35, .96),
-          rgba(7, 22, 35, .76) 43%,
-          rgba(7, 22, 35, .15)
+          rgba(8, 8, 8, .96),
+          rgba(8, 8, 8, .76) 43%,
+          rgba(8, 8, 8, .15)
         ),
         linear-gradient(
           0deg,
-          rgba(7, 22, 35, .65),
+          rgba(8, 8, 8, .65),
           transparent 55%
         );
     }
@@ -307,7 +308,7 @@
     .hero p {
       max-width: 440px;
       margin-top: 26px;
-      color: #d1deea;
+      color: #E0D3C2;
       font-size: 18px;
     }
 
@@ -316,13 +317,13 @@
     .hero-note {
       margin-top: 44px;
       font-size: 12px;
-      color: #b8cddf;
+      color: #B9AD9F;
     }
 
     .hero-note span {
       padding-left: 20px;
       margin-left: 20px;
-      border-left: 1px solid #6a7d8e;
+      border-left: 1px solid #B78360;
     }
 
     .section-heading {
@@ -353,8 +354,8 @@
       border-radius: var(--radius);
       background: radial-gradient(
         ellipse at 65% 20%,
-        #385a74,
-        #162b3c 70%
+        #604B39,
+        #211B16 70%
       );
     }
 
@@ -369,9 +370,9 @@
       bottom: 22px;
       left: 22px;
       padding: 8px 14px;
-      border: 1px solid #4d667b;
+      border: 1px solid #94765F;
       border-radius: 999px;
-      background: #0b1c2de0;
+      background: #080808e0;
       font-size: 12px;
     }
 
@@ -392,7 +393,7 @@
     }
 
     .about-points span {
-      color: var(--accent);
+      color: var(--detail);
       font-size: 13px;
     }
 
@@ -400,7 +401,7 @@
 
     .services {
       border-block: 1px solid var(--line);
-      background: #0c1c2a;
+      background: #100E0C;
     }
 
     .services-grid {
@@ -421,7 +422,7 @@
 
     .service-number {
       margin-bottom: 38px;
-      color: var(--accent);
+      color: var(--detail);
       font-size: 13px;
     }
 
@@ -456,8 +457,8 @@
     }
 
     .service-card.featured {
-      border-color: #7497b3;
-      background: #19364c;
+      border-color: #94765F;
+      background: #211B16;
     }
 
     .fine-print {
@@ -475,7 +476,7 @@
       padding: 28px;
       border: 1px solid var(--line);
       border-radius: 20px;
-      background: linear-gradient(135deg, #152d40, #102131);
+      background: linear-gradient(135deg, #171717, #12100E);
     }
 
     .equipment-card .tag {
@@ -501,6 +502,9 @@
     }
 
     .demo-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       padding: 28px;
       border: 1px solid var(--line);
       border-radius: 20px;
@@ -508,6 +512,7 @@
     }
 
     .demo-top {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       gap: 14px;
@@ -518,7 +523,7 @@
     }
 
     .demo-card h3 { margin-bottom: 12px; }
-    .demo-card p { font-size: 14px; }
+    .demo-card p { flex-grow: 1; font-size: 14px; }
 
     .demo-status {
       display: inline-block;
@@ -535,9 +540,9 @@
       grid-template-columns: 1fr 1fr;
       gap: 64px;
       padding: 48px;
-      border: 1px solid #3c5c74;
+      border: 1px solid #705745;
       border-radius: var(--radius);
-      background: linear-gradient(135deg, #1c3b52, #102434 70%);
+      background: linear-gradient(135deg, #292018, #171717 70%);
     }
 
     .booking-copy > p { margin-top: 24px; }
@@ -545,7 +550,7 @@
 
     .contact-details div {
       padding-block: 15px;
-      border-top: 1px solid #355368;
+      border-top: 1px solid #584738;
     }
 
     .contact-details dt {
@@ -573,14 +578,14 @@
       width: 100%;
       min-height: 52px;
       padding: 13px 14px;
-      border: 1px solid #7497b3;
+      border: 1px solid #94765F;
       border-radius: 10px;
-      background: #0d2131;
+      background: #100E0C;
       color: var(--text);
     }
 
     input::placeholder {
-      color: #93aabd;
+      color: #B9AD9F;
       opacity: 1;
     }
 
@@ -612,7 +617,7 @@
       padding: 18px;
       border: 1px solid var(--accent);
       border-radius: 12px;
-      background: #122f43;
+      background: #211B16;
       scroll-margin-top: 24px;
     }
 
@@ -694,9 +699,9 @@
         gap: 4px;
         width: min(280px, 100%);
         padding: 12px;
-        border: 1px solid #42627a;
+        border: 1px solid #705745;
         border-radius: 16px;
-        background: #102434;
+        background: #171717;
         box-shadow: 0 16px 32px #0005;
       }
 
@@ -709,8 +714,8 @@
 
       .hero::after {
         background:
-          linear-gradient(90deg, #071623e8, #07162380),
-          linear-gradient(0deg, #071623a6, transparent);
+          linear-gradient(90deg, #080808e8, #08080880),
+          linear-gradient(0deg, #080808a6, transparent);
       }
 
       .hero p { font-size: 16px; }
@@ -1065,7 +1070,7 @@
             <span>ДЕМО 01</span>
             <span>TRAP</span>
           </div>
-          <h3>Рэп / трэп</h3>
+          <h3>Rap / Trap</h3>
           <p>Основной голос, даблы и бэки поверх инструментала.</p>
           <span class="demo-status">Демо скоро появится</span>
         </article>
@@ -1075,7 +1080,7 @@
             <span>ДЕМО 02</span>
             <span>POP</span>
           </div>
-          <h3>Поп-вокал</h3>
+          <h3>Pop Vocals</h3>
           <p>Мелодический вокал с гармониями и обработкой.</p>
           <span class="demo-status">Демо скоро появится</span>
         </article>
@@ -1085,7 +1090,7 @@
             <span>ДЕМО 03</span>
             <span>BOOM BAP</span>
           </div>
-          <h3>Бум-бэп</h3>
+          <h3>Boom Bap</h3>
           <p>
             Ритмичная читка на бит с акцентом на слова и подачу.
           </p>
@@ -1234,7 +1239,7 @@
         toggle.setAttribute('aria-label', theme === 'dark'
           ? 'Переключить на светлую тему' : 'Переключить на тёмную тему');
         toggle.setAttribute('title', toggle.getAttribute('aria-label'));
-        themeColor.setAttribute('content', theme === 'dark' ? '#091724' : '#f3f7fb');
+        themeColor.setAttribute('content', theme === 'dark' ? '#080808' : '#F2E8D8');
       }
       updateTheme(root.dataset.theme === 'light' ? 'light' : 'dark');
       toggle.addEventListener('click', () => {
