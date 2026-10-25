@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MoStudio — учебный лендинг вымышленной студии звукозаписи в Санкт-Петербурге. Запись вокала, сведение и мастеринг.">
+  <meta name="theme-color" content="#091724">
+  <title>MoStudio — студия звукозаписи</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #091724;
+      --panel: #102434;
+      --text: #edf5fc;
+      --muted: #adc0d0;
+      --accent: #9bcaf0;
+      --line: #2d4557;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 28px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button, summary { cursor: pointer; }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      color: var(--muted);
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { line-height: 1.08; }
+
+    h1 {
+      font-size: clamp(42px, 6.7vw, 92px);
+      font-weight: 700;
+      letter-spacing: -.055em;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4.3vw, 58px);
+      letter-spacing: -.045em;
+    }
+
+    h3 { font-size: 23px; letter-spacing: -.025em; }
+    p { color: var(--muted); }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 5px;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 64px));
+      margin-inline: auto;
+    }
+
+    .section { padding-block: 88px; }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      min-height: 52px;
+      padding: 14px 24px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #091724;
+      font-weight: 700;
+      line-height: 1.3;
+      text-align: center;
+      transition: background .2s, transform .2s;
+    }
+
+    .button:hover {
+      background: #c2e2fa;
+      transform: translateY(-2px);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .button.secondary:hover { background: var(--panel); }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 20;
+      transform: translateY(-180%);
+    }
+
+    .skip-link:focus { transform: none; }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      min-height: 100px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: -.06em;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 26px;
+    }
+
+    .logo-mark i {
+      display: block;
+      width: 4px;
+      height: 14px;
+      border-radius: 4px;
+      background: var(--accent);
+    }
+
+    .logo-mark i:nth-child(2) { height: 24px; }
+    .logo-mark i:nth-child(3) { height: 19px; }
+
+    .desktop-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .desktop-nav a,
+    .mobile-menu a {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .desktop-nav a:hover,
+    .mobile-menu a:hover {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .header .button {
+      min-height: 44px;
+      padding: 10px 18px;
+      font-size: 14px;
+    }
+
+    .mobile-menu { display: none; }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      min-height: 650px;
+      padding: 64px 54px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: radial-gradient(
+        ellipse at 85% 25%,
+        #446580,
+        #122a3e 55%,
+        #102131
+      );
+    }
+
+    .hero-photo {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      opacity: .66;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(7, 22, 35, .96),
+          rgba(7, 22, 35, .76) 43%,
+          rgba(7, 22, 35, .15)
+        ),
+        linear-gradient(
+          0deg,
+          rgba(7, 22, 35, .65),
+          transparent 55%
+        );
+    }
+
+    .hero-content { width: min(780px, 100%); }
+
+    .hero h1 span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 440px;
+      margin-top: 26px;
+      color: #d1deea;
+      font-size: 18px;
+    }
+
+    .hero .button { margin-top: 34px; }
+
+    .hero-note {
+      margin-top: 44px;
+      font-size: 12px;
+      color: #b8cddf;
+    }
+
+    .hero-note span {
+      padding-left: 20px;
+      margin-left: 20px;
+      border-left: 1px solid #6a7d8e;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 36px;
+    }
+
+    .section-heading p {
+      max-width: 310px;
+      font-size: 14px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .photo {
+      position: relative;
+      min-height: 380px;
+      height: 100%;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: radial-gradient(
+        ellipse at 65% 20%,
+        #385a74,
+        #162b3c 70%
+      );
+    }
+
+    .photo img {
+      position: absolute;
+      inset: 0;
+      opacity: .8;
+    }
+
+    .photo-label {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      padding: 8px 14px;
+      border: 1px solid #4d667b;
+      border-radius: 999px;
+      background: #0b1c2de0;
+      font-size: 12px;
+    }
+
+    .about-copy > p { margin-top: 24px; }
+
+    .about-points {
+      margin: 26px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .about-points li {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      padding-block: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .about-points span {
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    .about-points p { font-size: 14px; }
+
+    .services {
+      border-block: 1px solid var(--line);
+      background: #0c1c2a;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+    }
+
+    .service-number {
+      margin-bottom: 38px;
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    .service-card h3 { min-height: 50px; }
+
+    .service-card p {
+      margin-top: 14px;
+      font-size: 16px;
+    }
+
+    .price {
+      margin-top: auto;
+      padding-top: 30px;
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: -.035em;
+    }
+
+    .price small {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: normal;
+    }
+
+    .service-card a {
+      margin-top: 22px;
+      color: var(--accent);
+      font-size: 14px;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .service-card.featured {
+      border-color: #7497b3;
+      background: #19364c;
+    }
+
+    .fine-print {
+      margin-top: 22px;
+      font-size: 14px;
+    }
+
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .equipment-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(135deg, #152d40, #102131);
+    }
+
+    .equipment-card .tag {
+      display: inline-block;
+      margin-bottom: 28px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .1em;
+    }
+
+    .equipment-card p {
+      max-width: 450px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .demos { padding-top: 0; }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .demo-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+    }
+
+    .demo-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 34px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .1em;
+    }
+
+    .demo-card h3 { margin-bottom: 12px; }
+    .demo-card p { font-size: 14px; }
+
+    .demo-status {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .booking-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      padding: 48px;
+      border: 1px solid #3c5c74;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #1c3b52, #102434 70%);
+    }
+
+    .booking-copy > p { margin-top: 24px; }
+    .contact-details { margin: 34px 0 0; }
+
+    .contact-details div {
+      padding-block: 15px;
+      border-top: 1px solid #355368;
+    }
+
+    .contact-details dt {
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .contact-details dd {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .form-field { margin-bottom: 18px; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input,
+    select {
+      display: block;
+      width: 100%;
+      min-height: 52px;
+      padding: 13px 14px;
+      border: 1px solid #7497b3;
+      border-radius: 10px;
+      background: #0d2131;
+      color: var(--text);
+    }
+
+    input::placeholder {
+      color: #93aabd;
+      opacity: 1;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    .field-hint {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .booking-form .button {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .form-note {
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      background: #122f43;
+      scroll-margin-top: 24px;
+    }
+
+    .form-message:target { display: block; }
+    .form-message p { color: var(--text); }
+
+    .form-message a {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--accent);
+      font-size: 13px;
+      text-decoration: underline;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-block: 38px;
+    }
+
+    .footer p,
+    .footer > a:not(.logo) {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer > a:not(.logo) {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    @media (max-width: 1050px) {
+      .desktop-nav { gap: 14px; }
+      .desktop-nav a { font-size: 12px; }
+      .header > .button { display: none; }
+
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .about-grid { gap: 32px; }
+
+      .booking-panel {
+        gap: 32px;
+        padding: 36px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: calc(100% - 32px); }
+      .section { padding-block: 60px; }
+
+      .header {
+        position: relative;
+        min-height: 82px;
+      }
+
+      .desktop-nav { display: none; }
+      .mobile-menu { display: block; }
+
+      .mobile-menu summary {
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-size: 14px;
+      }
+
+      .mobile-menu nav {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        z-index: 10;
+        display: grid;
+        gap: 4px;
+        width: min(280px, 100%);
+        padding: 12px;
+        border: 1px solid #42627a;
+        border-radius: 16px;
+        background: #102434;
+        box-shadow: 0 16px 32px #0005;
+      }
+
+      .mobile-menu a { padding: 10px 12px; }
+
+      .hero {
+        min-height: 570px;
+        padding: 44px 26px;
+      }
+
+      .hero::after {
+        background:
+          linear-gradient(90deg, #071623e8, #07162380),
+          linear-gradient(0deg, #071623a6, transparent);
+      }
+
+      .hero p { font-size: 16px; }
+
+      .hero-note span {
+        padding-left: 10px;
+        margin-left: 10px;
+      }
+
+      .about-grid,
+      .booking-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .about-copy { order: -1; }
+      .photo { min-height: 320px; }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .demo-grid { grid-template-columns: 1fr; }
+      .demo-top { margin-bottom: 24px; }
+      .demos { padding-top: 0; }
+      .booking-panel { padding: 28px; }
+
+      .footer {
+        align-items: start;
+        flex-direction: column;
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 36px 22px; }
+      h1 { font-size: clamp(36px, 10vw, 48px); }
+
+      .hero .button {
+        width: 100%;
+        padding-inline: 14px;
+      }
+
+      .hero-note span {
+        display: block;
+        padding: 0;
+        margin: 4px 0 0;
+        border: 0;
+      }
+
+      .services-grid,
+      .equipment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-card h3 { min-height: auto; }
+      .service-number { margin-bottom: 24px; }
+      .booking-panel { padding: 24px 20px; }
+      .logo { font-size: 23px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+      .button:hover { transform: none; }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link button" href="#main">
+    Перейти к содержимому
+  </a>
+
+  <header class="header container">
+    <a class="logo" href="#top" aria-label="MoStudio, в начало страницы">
+      <span class="logo-mark" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </span>
+      MoStudio
+    </a>
+
+    <nav class="desktop-nav" aria-label="Основная навигация">
+      <a href="#about">О студии</a>
+      <a href="#services">Услуги и цены</a>
+      <a href="#equipment">Оборудование</a>
+      <a href="#demos">Примеры работ</a>
+      <a href="#booking">Контакты</a>
+    </nav>
+
+    <a class="button secondary" href="#booking">
+      Записаться в МоСту
+    </a>
+
+    <details class="mobile-menu">
+      <summary>Меню</summary>
+      <nav aria-label="Навигация на телефоне">
+        <a href="#about">О студии</a>
+        <a href="#services">Услуги и цены</a>
+        <a href="#equipment">Оборудование</a>
+        <a href="#demos">Примеры работ</a>
+        <a href="#booking">Запись и контакты</a>
+      </nav>
+    </details>
+  </header>
+
+  <main id="main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <img
+        class="hero-photo"
+        src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&amp;fit=crop&amp;w=1800&amp;q=85"
+        alt="Оборудование в студии звукозаписи"
+        fetchpriority="high"
+        referrerpolicy="no-referrer"
+      >
+
+      <div class="hero-content">
+        <span class="eyebrow">
+          Студия звукозаписи · Санкт-Петербург
+        </span>
+
+        <h1 id="hero-title">
+          Твой звук<br>начинается в
+          <span>MoStudio</span>
+        </h1>
+
+        <p>Запись вокала, сведение и мастеринг в Санкт-Петербурге</p>
+
+        <a class="button" href="#booking">
+          Записаться в МоСту
+          <span aria-hidden="true">↗</span>
+        </a>
+
+        <div class="hero-note">
+          От первой строчки до готового трека
+          <span>Ежедневно, 12:00–22:00</span>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section container"
+      id="about"
+      aria-labelledby="about-title"
+    >
+      <div class="about-grid">
+        <div class="photo">
+          <img
+            src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+            alt="Студийный микрофон для записи голоса"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          >
+          <span class="photo-label">Место для твоего голоса</span>
+        </div>
+
+        <div class="about-copy">
+          <span class="eyebrow">01 / О студии</span>
+
+          <h2 id="about-title">
+            MoStudio.<br>Начни с первого дубля.
+          </h2>
+
+          <p>
+            В МоСту можно прийти с готовым треком или впервые попробовать
+            записать голос. Работаем с начинающими музыкантами,
+            рэп-исполнителями и вокалистами.
+          </p>
+
+          <ul class="about-points">
+            <li>
+              <span>01</span>
+              <p>
+                Объясним, как работать с микрофоном и подготовиться к записи.
+              </p>
+            </li>
+            <li>
+              <span>02</span>
+              <p>
+                Поможем с дублями, подскажем по подаче и вместе выберем
+                удачные фрагменты.
+              </p>
+            </li>
+            <li>
+              <span>03</span>
+              <p>
+                В спокойной рабочей атмосфере есть время привыкнуть
+                к своему голосу и попробовать ещё раз.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section services"
+      id="services"
+      aria-labelledby="services-title"
+    >
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">02 / Услуги и цены</span>
+            <h2 id="services-title">Что будем записывать?</h2>
+          </div>
+          <p>Выбери отдельный этап или работу над треком целиком.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <span class="service-number">01 / REC</span>
+            <h3>Запись вокала</h3>
+            <p>
+              Запишем основной голос, бэки и даблы.
+              Поможем во время сессии.
+            </p>
+            <div class="price">
+              1500 ₽ <small>/ час</small>
+            </div>
+            <a href="#booking">Записаться в МоСту ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">02 / MIX</span>
+            <h3>Сведение</h3>
+            <p>
+              Соберём дорожки, настроим баланс
+              и обработаем голос в миксе.
+            </p>
+            <div class="price">
+              от 4000 ₽ <small>/ трек</small>
+            </div>
+            <a href="#booking">Записаться в МоСту ↗</a>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">03 / MASTER</span>
+            <h3>Мастеринг</h3>
+            <p>
+              Подготовим готовый микс к публикации,
+              проверим громкость и частотный баланс.
+            </p>
+            <div class="price">
+              от 1500 ₽ <small>/ трек</small>
+            </div>
+            <a href="#booking">Записаться в МоСту ↗</a>
+          </article>
+
+          <article class="service-card featured">
+            <span class="service-number">04 / FULL TRACK</span>
+            <h3>Трек под ключ</h3>
+            <p>
+              Запись вокала, сведение и мастеринг твоего трека
+              на готовый инструментал.
+            </p>
+            <div class="price">от 8000 ₽</div>
+            <a href="#booking">Записаться в МоСту ↗</a>
+          </article>
+        </div>
+
+        <p class="fine-print">Условные цены для учебного проекта.</p>
+      </div>
+    </section>
+
+    <section
+      class="section container"
+      id="equipment"
+      aria-labelledby="equipment-title"
+    >
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">03 / Оборудование</span>
+          <h2 id="equipment-title">Всё для записи голоса</h2>
+        </div>
+        <p>
+          Базовый комплект студии.
+          Конкретные модели в учебном проекте не указаны.
+        </p>
+      </div>
+
+      <div class="equipment-grid">
+        <article class="equipment-card">
+          <span class="tag">01 / МИКРОФОН</span>
+          <h3>Студийный микрофон</h3>
+          <p>
+            Для записи вокала и рэпа. Поп-фильтр помогает уменьшить
+            резкие звуки на «п» и «б».
+          </p>
+        </article>
+
+        <article class="equipment-card">
+          <span class="tag">02 / ИНТЕРФЕЙС</span>
+          <h3>Аудиоинтерфейс</h3>
+          <p>
+            Подключает микрофон к компьютеру и преобразует сигнал
+            для записи. Позволяет настроить уровень входного звука.
+          </p>
+        </article>
+
+        <article class="equipment-card">
+          <span class="tag">03 / МОНИТОРЫ</span>
+          <h3>Студийные мониторы</h3>
+          <p>
+            Для прослушивания и сведения.
+            Помогают оценить баланс голоса и инструментала.
+          </p>
+        </article>
+
+        <article class="equipment-card">
+          <span class="tag">04 / НАУШНИКИ</span>
+          <h3>Закрытые наушники</h3>
+          <p>
+            Чтобы слышать инструментал во время записи
+            и уменьшить его попадание в микрофон.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section
+      class="section demos container"
+      id="demos"
+      aria-labelledby="demos-title"
+    >
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">04 / Примеры работ</span>
+          <h2 id="demos-title">Место для будущих треков</h2>
+        </div>
+        <p>Аудиофайлов пока нет. Здесь появятся примеры звучания.</p>
+      </div>
+
+      <div class="demo-grid">
+        <article class="demo-card">
+          <div class="demo-top">
+            <span>ДЕМО 01</span>
+            <span>TRAP</span>
+          </div>
+          <h3>Рэп / трэп</h3>
+          <p>Основной голос, даблы и бэки поверх инструментала.</p>
+          <span class="demo-status">Демо скоро появится</span>
+        </article>
+
+        <article class="demo-card">
+          <div class="demo-top">
+            <span>ДЕМО 02</span>
+            <span>POP</span>
+          </div>
+          <h3>Поп-вокал</h3>
+          <p>Мелодический вокал с гармониями и обработкой.</p>
+          <span class="demo-status">Демо скоро появится</span>
+        </article>
+
+        <article class="demo-card">
+          <div class="demo-top">
+            <span>ДЕМО 03</span>
+            <span>BOOM BAP</span>
+          </div>
+          <h3>Бум-бэп</h3>
+          <p>
+            Ритмичная читка на бит с акцентом на слова и подачу.
+          </p>
+          <span class="demo-status">Демо скоро появится</span>
+        </article>
+      </div>
+    </section>
+
+    <section
+      class="container"
+      id="booking"
+      aria-labelledby="booking-title"
+    >
+      <div class="booking-panel">
+        <div class="booking-copy">
+          <span class="eyebrow">05 / Запись и контакты</span>
+          <h2 id="booking-title">Увидимся<br>в MoStudio</h2>
+
+          <p>
+            Укажи имя, контакт для связи и нужную услугу.
+            Можно попробовать заполнить форму:
+            она работает в демонстрационном режиме.
+          </p>
+
+          <dl class="contact-details">
+            <div>
+              <dt>Город</dt>
+              <dd>Санкт-Петербург</dd>
+            </div>
+            <div>
+              <dt>Часы работы</dt>
+              <dd>Ежедневно с 12:00 до 22:00</dd>
+            </div>
+            <div>
+              <dt>Контакты</dt>
+              <dd>
+                Адрес, телефон и почта не указаны:
+                студия вымышленная.
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div>
+          <!--
+            Без name значения полей не включаются в GET-запрос.
+            Браузер проверяет required и pattern до перехода к сообщению.
+            Нет обработчика, хранилища или передачи введённых данных.
+          -->
+          <form
+            class="booking-form"
+            action="#form-message"
+            method="get"
+            autocomplete="off"
+          >
+            <div class="form-field">
+              <label for="visitor-name">Имя (обязательно)</label>
+              <input
+                id="visitor-name"
+                type="text"
+                placeholder="Как к тебе обращаться?"
+                required
+                pattern=".*\S.*"
+                maxlength="80"
+                title="Введи имя: поле не должно состоять из пробелов."
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="visitor-contact">
+                Контакт для связи (обязательно)
+              </label>
+              <input
+                id="visitor-contact"
+                type="text"
+                placeholder="Телефон, почта или @username"
+                required
+                pattern=".*\S.*"
+                maxlength="120"
+                aria-describedby="contact-hint"
+                title="Укажи контакт: поле не должно состоять из пробелов."
+              >
+              <small class="field-hint" id="contact-hint">
+                Подойдёт телефон, электронная почта
+                или имя в Telegram.
+              </small>
+            </div>
+
+            <div class="form-field">
+              <label for="visitor-service">Услуга (обязательно)</label>
+              <select id="visitor-service" required>
+                <option value="" selected disabled>Выбери услугу</option>
+                <option value="vocal">
+                  Запись вокала — 1500 ₽/час
+                </option>
+                <option value="mix">
+                  Сведение — от 4000 ₽/трек
+                </option>
+                <option value="master">
+                  Мастеринг — от 1500 ₽/трек
+                </option>
+                <option value="full">
+                  Трек под ключ — от 8000 ₽
+                </option>
+              </select>
+            </div>
+
+            <button class="button" type="submit">
+              Записаться в МоСту
+              <span aria-hidden="true">↗</span>
+            </button>
+
+            <p class="form-note">
+              Учебная форма. Введённые данные не отправляются
+              и не сохраняются сайтом.
+            </p>
+          </form>
+
+          <div
+            class="form-message"
+            id="form-message"
+            role="status"
+            tabindex="-1"
+          >
+            <p>Это демонстрационная форма. Заявка не отправлена</p>
+            <a href="#booking">Вернуться к форме</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <a class="logo" href="#top">MoStudio</a>
+    <p>Учебный проект. Студия и цены вымышлены</p>
+    <a href="#top">Наверх ↑</a>
+  </footer>
+</body>
+</html>
