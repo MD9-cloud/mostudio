@@ -7,6 +7,12 @@
   <meta name="theme-color" content="#091724">
   <title>MoStudio — студия звукозаписи</title>
 
+  <script>
+    try {
+      if (localStorage.getItem('mostudio-theme') === 'light')
+        document.documentElement.dataset.theme = 'light';
+    } catch (_) {}
+  </script>
   <style>
     :root {
       color-scheme: dark;
@@ -19,6 +25,64 @@
       --radius: 24px;
     }
 
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f3f7fb;
+      --panel: #ffffff;
+      --text: #152d40;
+      --muted: #465f73;
+      --accent: #245d89;
+      --line: #b6c7d5;
+    }
+    :root[data-theme="light"] .button { background: var(--accent); color: #fff; }
+    :root[data-theme="light"] .button:hover { background: #19466b; }
+    :root[data-theme="light"] .button.secondary { background: transparent; color: var(--text); }
+    :root[data-theme="light"] .button.secondary:hover { background: #e0ebf4; }
+    :root[data-theme="light"] .services { background: #e7eff6; }
+    :root[data-theme="light"] .service-card.featured { background: #dceaf5; border-color: #698da9; }
+    :root[data-theme="light"] .equipment-card { background: linear-gradient(135deg, #fff, #e5eef6); }
+    :root[data-theme="light"] .booking-panel {
+      background: linear-gradient(135deg, #dfecf6, #fff 70%);
+      border-color: #829fb5;
+    }
+    :root[data-theme="light"] .contact-details div { border-color: var(--line); }
+    :root[data-theme="light"] input,
+    :root[data-theme="light"] select { background: #fff; border-color: #69869e; }
+    :root[data-theme="light"] input::placeholder { color: #526b7e; }
+    :root[data-theme="light"] .form-message { background: #e2eef7; }
+    :root[data-theme="light"] .mobile-menu nav { background: var(--panel); border-color: var(--line); }
+    :root[data-theme="light"] .photo-label { color: #edf5fc; }
+    :root[data-theme="light"] .hero { background: #e1ebf3; }
+    :root[data-theme="light"] .hero::after {
+      background: linear-gradient(90deg, #f3f7fbf5 0%, #f3f7fbe6 38%, #f3f7fb99 65%, #f3f7fb14 100%);
+    }
+    :root[data-theme="light"] .hero p,
+    :root[data-theme="light"] .hero-note { color: var(--muted); }
+    :root[data-theme="light"] .hero-note span { border-color: #69869e; }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      color: var(--text);
+    }
+    .theme-toggle svg { width: 22px; height: 22px; }
+    .theme-toggle .theme-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .theme-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .theme-moon { display: block; }
+    .theme-toggle:hover { border-color: var(--accent); }
     * { box-sizing: border-box; }
 
     html {
@@ -585,7 +649,7 @@
     @media (max-width: 1050px) {
       .desktop-nav { gap: 14px; }
       .desktop-nav a { font-size: 12px; }
-      .header > .button { display: none; }
+      .header-actions > .button { display: none; }
 
       .services-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -607,6 +671,9 @@
         position: relative;
         min-height: 82px;
       }
+
+      .header { flex-wrap: wrap; gap: 12px; padding-block: 16px; }
+      .header > .logo { margin-right: auto; }
 
       .desktop-nav { display: none; }
       .mobile-menu { display: block; }
@@ -735,9 +802,23 @@
       <a href="#booking">Контакты</a>
     </nav>
 
-    <a class="button secondary" href="#booking">
-      Записаться в МоСту
-    </a>
+    <div class="header-actions">
+      <a class="button secondary" href="#booking">
+        Записаться в МоСту
+      </a>
+      <button class="theme-toggle" type="button" id="theme-toggle"
+        title="Переключить на светлую тему" aria-label="Переключить на светлую тему">
+        <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+        </svg>
+        <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M20.9 13.3A9 9 0 0 1 10.7 3.1a9 9 0 1 0 10.2 10.2Z" />
+        </svg>
+      </button>
+    </div>
 
     <details class="mobile-menu">
       <summary>Меню</summary>
@@ -1142,5 +1223,26 @@
     <p>Учебный проект. Студия и цены вымышлены</p>
     <a href="#top">Наверх ↑</a>
   </footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.getElementById('theme-toggle');
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      function updateTheme(theme) {
+        root.dataset.theme = theme;
+
+        toggle.setAttribute('aria-label', theme === 'dark'
+          ? 'Переключить на светлую тему' : 'Переключить на тёмную тему');
+        toggle.setAttribute('title', toggle.getAttribute('aria-label'));
+        themeColor.setAttribute('content', theme === 'dark' ? '#091724' : '#f3f7fb');
+      }
+      updateTheme(root.dataset.theme === 'light' ? 'light' : 'dark');
+      toggle.addEventListener('click', () => {
+        const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        updateTheme(theme);
+        try { localStorage.setItem('mostudio-theme', theme); } catch (_) {}
+      });
+    })();
+  </script>
 </body>
 </html>
