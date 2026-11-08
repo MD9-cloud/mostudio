@@ -298,7 +298,33 @@
       font-size: 18px;
     }
 
-    .hero .button { margin-top: 34px; }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .faq { max-width: 920px; }
+    .faq-intro { margin-top: 26px; font-size: 18px; }
+    .faq-list { margin-top: 44px; border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 4px;
+      list-style: none;
+      font-size: clamp(18px, 3vw, 23px);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; color: var(--accent); }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item summary:hover { color: var(--accent); }
+    .faq-answer { padding: 0 4px 24px; }
 
     .hero-note {
       margin-top: 44px;

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ответы МоСту на вопросы о записи, подготовке и первом визите в студию.">
+  <title>Вопросы и ответы — MoStudio</title>
+  <script>
+    try {
+      if (localStorage.getItem('mostudio-theme') === 'light')
+        document.documentElement.dataset.theme = 'light';
+    } catch (_) {}
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link button" href="#main">Перейти к содержимому</a>
+  <header class="header container">
+    <a class="logo" href="index.html" aria-label="MoStudio, на главную">
+      <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      MoStudio
+    </a>
+    <a class="button secondary" href="index.html">На главную</a>
+  </header>
+  <main class="section container faq" id="main">
+    <span class="eyebrow">МоСту / FAQ</span>
+    <h1>Вопросы<br>и ответы</h1>
+    <p class="faq-intro">Всё, что хочется узнать перед первым дублем.</p>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Как забронировать запись?</summary>
+        <div class="faq-answer"><p>Оставьте заявку на сайте либо отпишитесь нам в Телеграме.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Где найти вдохновение?</summary>
+        <div class="faq-answer"><p>Слушай не только русскую музыку, но и западную. Например, зацени новый альбом Lil Baby.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Можно ли прийти компанией?</summary>
+        <div class="faq-answer"><p>Да, можно. Приходи с друзьями.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Можно ли попробовать первый раз без опыта?</summary>
+        <div class="faq-answer"><p>Да, можно. Звукарь подскажет, что делать, и поможет записать первый дубль.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Легко ли завайбиться со звукарём?</summary>
+        <div class="faq-answer"><p>Да, просто покажи, что ты слушаешь, и расскажи, какой звук хочешь. Дальше разберётесь вместе.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Есть ли возможность пересечься с какими-нибудь популярными исполнителями?</summary>
+        <div class="faq-answer"><p>Да, такое возможно. Всё зависит от того, кто в этот день записывается в студии.</p></div>
+      </details>
+    </div>
+  </main>
+  <footer class="footer container">
+    <a class="logo" href="index.html">MoStudio</a>
+    <p>Учебный проект. Студия и цены вымышлены</p>
+  </footer>
+  <script src="faq.js"></script>
+</body>
+</html>
